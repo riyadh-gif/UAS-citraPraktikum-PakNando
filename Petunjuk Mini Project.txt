@@ -1,0 +1,76 @@
+Tujuan Mini Project
+Mahasiswa diharapkan mampu:
+
+Membuat data point cloud simulasi anak tangga 4 step menggunakan persamaan matematis.
+Mengimplementasikan algoritma untuk mendeteksi dan membedakan permukaan yang dapat dipijak (tread/horizontal surface) dengan bagian vertikal (riser) dan tepi tangga.
+Memahami teknik segmentasi dan analisis geometri point cloud.
+Mengevaluasi performa metode yang digunakan.
+
+Deskripsi Tugas
+1. Generasi Data Point Cloud Anak Tangga
+Buatlah point cloud yang membentuk anak tangga dengan 4 tingkat (4 steps).
+Spesifikasi Geometri yang Disarankan:
+
+Lebar tangga (x-axis): 2.0 – 3.0 meter
+Panjang total langkah (y-axis): 2.0 – 2.5 meter
+Tinggi setiap step: 0.15 – 0.20 meter
+Kedalaman setiap step (tread depth): 0.25 – 0.35 meter
+
+Persamaan Matematis untuk Generasi Data:
+Setiap step ke-i (i = 0 sampai 3):
+a. Permukaan Horizontal (Tread - Bagian yang Dapat Dipijak) (buka persamaan dg latex)
+\begin{cases}
+x \sim \text{Uniform}(0, \text{width}) \\
+y \sim \text{Uniform}(i \times \text{depth}, (i+1) \times \text{depth}) \\
+z = i \times \text{height} + \epsilon_z \quad (\epsilon_z \sim \mathcal{N}(0, 0.02^2))
+\end{cases}
+b. Permukaan Vertikal (Riser)
+\begin{cases}
+x \sim \text{Uniform}(0, \text{width}) \\
+y = i \times \text{depth} + \epsilon_y \\
+z \sim \text{Uniform}((i-1) \times \text{height}, i \times \text{height})
+\end{cases}
+Tambahkan noise realistis LiDAR dan sedikit titik acak sebagai outlier.
+Jumlah titik total minimal 15.000 – 25.000 titik.
+
+2. Tugas Utama: Segmentasi Permukaan yang Dapat Dipijak
+Lakukan segmentasi untuk membedakan:
+
+Permukaan yang Dapat Dipijak (horizontal treads)
+Permukaan Vertikal (risers)
+Bagian Lain (tepi, noise, dll)
+
+Metode yang WAJIB diimplementasikan (minimal 2 metode):
+
+RANSAC Plane Fitting untuk mendeteksi bidang horizontal (normal vector mendekati sumbu Z).
+PCA + Normal Vector Analysis (analisis arah normal tiap cluster).
+Clustering (DBSCAN atau Euclidean Clustering) + analisis kemiringan.
+Metode Lanjutan (nilai tambah): Region Growing atau Height Histogram Analysis.
+
+
+3. Evaluasi
+
+Visualisasikan point cloud sebelum dan sesudah segmentasi (gunakan warna berbeda: hijau = dapat dipijak, merah = riser, abu-abu = lainnya).
+Hitung metrik performa:
+Accuracy, Precision, Recall, F1-Score, IoU untuk kelas “dapat dipijak”.
+
+Analisis pengaruh noise terhadap akurasi.
+Diskusikan apakah hasil segmentasi cukup aman untuk digunakan oleh robot pengikut tangga.
+
+
+Deliverables yang Harus Dikumpulkan
+
+Kode Program (Jupyter Notebook .ipynb atau folder Python)
+Kode generasi data
+Kode segmentasi
+Visualisasi 3D
+
+Laporan PDF (maksimal 8 halaman, IEEE conference template)
+Pendahuluan & tujuan
+Persamaan matematis generasi data
+Metodologi & algoritma (dengan rumus)
+Hasil eksperimen + visualisasi
+Analisis & diskusi
+Kesimpulan
+video Presentasi (8–10 slide) – maks 10 menit.
+Repository GitHub (bonus nilai)

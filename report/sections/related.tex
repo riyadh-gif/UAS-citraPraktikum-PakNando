@@ -1,0 +1,98 @@
+\section{Related Work}
+\label{sec:related}
+
+Detecting steppable surfaces in staircase point clouds draws on several
+threads of point-cloud processing. We organise the literature thematically
+and contrast each line of work with the requirements of our problem:
+fast, interpretable, and label-free segmentation of treads and risers.
+
+\subsection{Geometric plane segmentation}
+The dominant paradigm for extracting planar structure from unorganised
+clouds is Random Sample Consensus (RANSAC). Li \emph{et al.}\
+\cite{li2017improved} improve standard RANSAC for indoor and urban plane
+segmentation by guiding sampling with Normal Distribution Transformation
+cells, mitigating the spurious planes that plain RANSAC fits across
+disjoint surfaces. RANSAC plane fitting has likewise been applied to
+RGB-D object recognition \cite{jalal2021rgb} and embedded in real-time
+planar LiDAR SLAM \cite{zhou2021lsam}, where planes serve as map
+primitives. These methods are efficient and interpretable, but they
+treat planes as generic primitives without an orientation prior; on a
+staircase the globally dominant plane is the oblique ramp spanning all
+steps, so unconstrained fitting absorbs riser points into tread planes.
+This observation motivates the orientation gate in our pipeline.
+
+\subsection{Normal estimation and surface analysis}
+A complementary route reasons about local surface geometry rather than
+global primitives. Huang \emph{et al.}\ \cite{huang2009consolidation}
+consolidate unorganised clouds and estimate reliable normals for surface
+reconstruction, while Castillo \emph{et al.}\ \cite{castillo2013point}
+recover normals through constrained nonlinear least squares for joint
+segmentation and denoising. Per-point normals are attractive for stairs
+because tread and riser differ sharply in orientation, yet normal
+estimation alone yields no grouping into coherent surfaces and is
+sensitive to neighbourhood scale under noise. Our PCA-normal baseline
+builds directly on this principle, classifying points by the tilt of the
+smallest-eigenvector normal relative to the vertical axis.
+
+\subsection{Clustering and region growing}
+To recover surfaces rather than isolated points, clustering and
+region-growing methods aggregate neighbours by geometric similarity.
+Density-based clustering (DBSCAN) has been used to identify and localise
+3D weld seams robustly in the presence of outliers
+\cite{zhou2024identification}; Euclidean clustering supports object
+detection from fused sparse clouds and imagery \cite{xu2021object}; and
+supervoxel-based region growing produces compact, boundary-respecting
+segments \cite{luo2021supervoxel}. These approaches naturally reject
+outliers as noise and form one cluster per physical surface, which suits
+the discrete tread/riser structure of stairs. They do not, however,
+encode the horizontal-versus-vertical distinction we require, so we
+precede spatial clustering with an orientation split and confirm each
+cluster by its slope.
+
+\subsection{Ground and LiDAR segmentation}
+Separating traversable ground from obstacles is a long-studied special
+case of surface segmentation. The survey by Gomes \emph{et al.}\
+\cite{gomes2023survey} catalogues ground-segmentation methods for
+automotive LiDAR and highlights the recurring trade-off between geometric
+methods that are fast and transparent and learned methods that are
+accurate but opaque. Stairs are a structured instance of this
+ground-versus-non-ground problem, where each tread is a small, elevated
+ground patch rather than a single dominant plane.
+
+\subsection{Learning-based segmentation}
+Deep networks have reshaped point-cloud semantic segmentation since
+PointNet \cite{qi2016pointnet} demonstrated direct learning on raw point
+sets, and recent surveys document the breadth of this progress
+\cite{sarker2024comprehensive}. Because dense labels are costly, weakly
+supervised \cite{li2022hybridcr}, few-shot \cite{zhao2020few}, and
+prototype-based few/zero-shot \cite{he2023prototype} formulations aim to
+reduce annotation demand. Despite strong accuracy, these models remain
+data-hungry, depend on representative training distributions, and offer
+limited interpretability and reproducibility for a safety-critical
+sub-problem such as foothold detection. This data and transparency cost
+is precisely what motivates revisiting classical geometry for stairs.
+
+\subsection{Robotic stair and terrain perception}
+In robotics, stair and terrain perception is tightly coupled to control.
+Matsumura \emph{et al.}\ \cite{matsumura2022deep} detect stairs from 3D
+point clouds with deep learning to prevent falls, while operator-assisted
+stair traversal has been demonstrated in field systems
+\cite{marion2017director}. Legged platforms rely on elevation maps and
+adaptive planning \cite{belter2016adaptive}, egocentric vision
+\cite{agarwal2022legged}, and stereo-based navigation over rough terrain
+\cite{stelzer2012stereo}, and traversability itself can be learned from
+simulation \cite{chavezgarcia2017learning}. These systems show that
+reliable steppable-surface detection is a prerequisite for safe motion,
+yet they are typically evaluated end-to-end on bespoke platforms, leaving
+the underlying segmentation step without an isolated, comparable
+benchmark.
+
+\subsection{Gap addressed by this work}
+Across these threads, geometric methods are fast and interpretable but
+rarely compared head-to-head on stairs, while learned methods require
+labelled data unavailable for this specific task. No prior study offers a
+controlled, fully labelled staircase benchmark on which classical
+segmenters can be measured against a common ground truth. We fill this
+gap with a parametric, fully annotated point-cloud generator and an
+apples-to-apples comparison of four classical methods for
+steppable-surface detection.

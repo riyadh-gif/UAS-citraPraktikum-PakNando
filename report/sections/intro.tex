@@ -1,0 +1,59 @@
+\section{Introduction}
+Robots that climb or follow staircases and assistive devices for the
+visually impaired must reason about three-dimensional structure to act
+safely. Legged and wheeled platforms increasingly rely on egocentric
+depth sensing to negotiate stairs and other discontinuous terrain
+\cite{agarwal2022legged,belter2016adaptive,stelzer2012stereo}, while
+shared-autonomy systems demand reliable geometric cues before a foot or
+wheel is committed to a surface \cite{marion2017director}. In all of
+these settings the central perceptual question is the same: which parts
+of an observed point cloud constitute a \emph{tread}, the steppable
+horizontal surface on which weight can be safely placed, as opposed to a
+near-vertical \emph{riser} or spurious edge and outlier returns.
+
+This problem is safety-critical. A tread mislabeled as non-steppable
+merely sacrifices an option, but a riser or edge mislabeled as steppable
+invites a foothold onto a vertical face, producing slips, stumbles, or
+falls. The same hazard motivates stair perception for the visually
+impaired, where undetected steps are a recognised fall hazard that motivates
+dedicated stair-detection systems \cite{matsumura2022deep}. Reliable tread detection therefore requires not
+only high recall but also high precision on the steppable class.
+
+Recent work approaches stair and terrain perception with deep neural
+networks that learn point-wise semantics directly from raw clouds
+\cite{qi2016pointnet,matsumura2022deep}. Such methods are powerful but
+data hungry: they require large volumes of densely labeled
+three-dimensional scans, which are costly to acquire for the specific
+geometry of stairs, and they offer limited interpretability. Equally
+problematic, the stair tread sub-problem lacks controlled, reproducible
+benchmarks with exact ground-truth labels, so reported results are
+difficult to compare across studies. Classical geometric methods, by
+contrast, are fast, transparent, and label-free, yet despite their
+maturity in plane segmentation and traversability estimation
+\cite{chavezgarcia2017learning,gomes2023survey} they remain
+under-compared on the staircase setting under matched conditions.
+
+We address this gap with a controlled, fully reproducible study of
+classical geometric segmentation for steppable-surface detection on
+staircases. Our contributions are as follows:
+\begin{itemize}
+  \item A parametric, fully labeled staircase point-cloud generator that
+        emits exact tread, riser, and other labels while modeling LiDAR
+        range jitter and outliers, enabling reproducible evaluation.
+  \item A unified three-class problem formulation together with the
+        implementation of four classical methods under a common
+        orientation-aware pipeline: RANSAC plane fitting, PCA normal
+        analysis, DBSCAN with slope confirmation, and a height-histogram
+        level detector.
+  \item A quantitative comparison of all four methods on the steppable
+        (tread) class, accompanied by a controlled noise-sensitivity
+        study that characterizes degradation as height noise grows.
+  \item A safety-oriented discussion of the results for robotic stair
+        traversal, relating precision and intersection-over-union to the
+        risk of unsafe footholds.
+\end{itemize}
+
+The remainder of this paper is organized as follows: Section~II reviews
+related work, Section~III presents the proposed data generator and the
+four segmentation methods, Section~IV reports the comparative evaluation
+and noise study, and Section~V concludes.

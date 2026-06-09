@@ -1,0 +1,62 @@
+# Citation pool (20 refs) — use ONLY these \cite keys
+
+- **sarker2024comprehensive** (2024, Machine Vision and Applications; cites=76) [theme: semantic 3D segmentation]
+  - A comprehensive overview of deep learning techniques for 3D point cloud classification and semantic segmentation
+  - Point cloud analysis has a wide range of applications in many areas such as computer vision, robotic manipulation, and autonomous driving. While deep learning has achieved remarkable success on image-based tasks, there are many unique chall…
+- **zhou2024identification** (2024, Journal of Manufacturing and Materials Processing; cites=12) [theme: DBSCAN clustering]
+  - An Identification and Localization Method for 3D Workpiece Welds Based on the DBSCAN Point Cloud Clustering Algorithm
+  - With the development of robotic welding automation, there is a strong interest in welding seam identification and localization methods with high accuracy, real-time performance, and robustness. This paper proposed a 3D workpiece weld identi…
+- **he2023prototype** (2023, IEEE Transactions on Image Processing; cites=75) [theme: semantic 3D segmentation]
+  - Prototype Adaption and Projection for Few- and Zero-Shot 3D Point Cloud Semantic Segmentation
+  - In this work, we address the challenging task of few-shot and zero-shot 3D point cloud semantic segmentation. The success of few-shot semantic segmentation in 2D computer vision is mainly driven by the pre-training on large-scale datasets l…
+- **gomes2023survey** (2023, Italian National Conference on Sensors; cites=39) [theme: LiDAR ground segmentation]
+  - A Survey on Ground Segmentation Methods for Automotive LiDAR Sensors
+  - In the near future, autonomous vehicles with full self-driving features will populate our public roads. However, fully autonomous cars will require robust perception systems to safely navigate the environment, which includes cameras, RADAR …
+- **agarwal2022legged** (2022, Conference on Robot Learning; cites=314) [theme: elevation mapping]
+  - Legged Locomotion in Challenging Terrains using Egocentric Vision
+  - Animals are capable of precise and agile locomotion using vision. Replicating this ability has been a long-standing goal in robotics. The traditional approach has been to decompose this problem into elevation mapping and foothold planning p…
+- **li2022hybridcr** (2022, Computer Vision and Pattern Recognition; cites=103) [theme: semantic 3D segmentation]
+  - HybridCR: Weakly-Supervised 3D Point Cloud Semantic Segmentation via Hybrid Contrastive Regularization
+  - To address the huge labeling cost in large-scale point cloud semantic segmentation, we propose a novel hybrid contrastive regularization (HybridCR) framework in weakly-supervised setting, which obtains competitive performance compared to it…
+- **matsumura2022deep** (2022, IEEE Access; cites=30) [theme: stair detection]
+  - Deep-Learning-Based Stair Detection Using 3D Point Cloud Data for Preventing Walking Accidents of the Visually Impaired
+  - Visually impaired individuals worldwide are at a risk of accidents while walking. In particular, falling from a raised place, such as stairs, can lead to serious injury. Therefore, we attempted to determine the best accident prevention meth…
+- **jalal2021rgb** (2021, International Bhurban Conference on Applied Sciences and Technology; cites=61) [theme: RANSAC 3D fitting]
+  - RGB-D Images for Objects Recognition using 3D Point Clouds and RANSAC Plane Fitting
+  - in this paper, we highlighted object localization and recognition using RGB-D images that is top of RGB scenarios and provide semantically richer pixel-level support aps for individual object. Indeed, depth information levels with disparity…
+- **zhou2021lsam** (2021, IEEE International Conference on Robotics and Automation; cites=56) [theme: plane detection LiDAR SLAM]
+  - π-LSAM: LiDAR Smoothing and Mapping With Planes
+  - This paper introduces a real-time dense planar LiDAR SLAM system, named π-LSAM, for the indoor environment. The widely used LiDAR odometry and mapping (LOAM) framework [1] does not include bundle adjustment (BA) and generates a low fidelity…
+- **xu2021object** (2021, IEEE Transactions on Instrumentation and Measurement; cites=27) [theme: Euclidean clustering]
+  - Object Detection Based on Fusion of Sparse Point Cloud and Image Information
+  - With the rapid development of mobile robots, environmental perception based on a single sensor can hardly meet the task requirements of the robots for object detection and path planning in complex scenarios. In this article, an object detec…
+- **luo2021supervoxel** (2021, International journal of pattern recognition and artificial intelligence; cites=25) [theme: region growing]
+  - Supervoxel-Based Region Growing Segmentation for Point Cloud Data
+  - Point cloud segmentation is a crucial fundamental step in 3D reconstruction, object recognition and scene understanding. This paper proposes a supervoxel-based point cloud segmentation algorithm in region growing principle to solve the issu…
+- **zhao2020few** (2020, Computer Vision and Pattern Recognition; cites=150) [theme: semantic 3D segmentation]
+  - Few-shot 3D Point Cloud Semantic Segmentation
+  - Many existing approaches for 3D point cloud semantic segmentation are fully supervised. These fully supervised approaches heavily rely on large amounts of labeled training data that are difficult to obtain and cannot segment new classes aft…
+- **li2017improved** (2017, Remote Sensing; cites=272) [theme: RANSAC plane segmentation]
+  - An Improved RANSAC for 3D Point Cloud Plane Segmentation Based on Normal Distribution Transformation Cells
+  - Plane segmentation is a basic task in the automatic reconstruction of indoor and urban environments from unorganized point clouds acquired by laser scanners. As one of the most common plane-segmentation methods, standard Random Sample Conse…
+- **chavezgarcia2017learning** (2017, IEEE Robotics and Automation Letters; cites=111) [theme: traversability legged robot]
+  - Learning Ground Traversability From Simulations
+  - Mobile ground robots operating on unstructured terrain must predict which areas of the environment they are able to pass in order to plan feasible paths. We address traversability estimation as a heightmap classification problem: we build a…
+- **marion2017director** (2017, J. Field Robotics; cites=63) [theme: stair-climbing robot]
+  - Director: A User Interface Designed for Robot Operation with Shared Autonomy
+  - no abstract
+- **qi2016pointnet** (2016, Computer Vision and Pattern Recognition; cites=17633) [theme: deep point-cloud segmentation]
+  - PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation
+  - Point cloud is an important type of geometric data structure. Due to its irregular format, most researchers transform such data to regular 3D voxel grids or collections of images. This, however, renders data unnecessarily voluminous and cau…
+- **belter2016adaptive** (2016, J. Field Robotics; cites=81) [theme: elevation mapping]
+  - Adaptive Motion Planning for Autonomous Rough Terrain Traversal with a Walking Robot
+  - no abstract
+- **castillo2013point** (2013, Innovations for Shape Analysis, Models and Algorithms; cites=59) [theme: PCA normal estimation]
+  - Point Cloud Segmentation and Denoising via Constrained Nonlinear Least Squares Normal Estimates
+  - no abstract
+- **stelzer2012stereo** (2012, Int. J. Robotics Res.; cites=128) [theme: traversability legged robot]
+  - Stereo-vision-based navigation of a six-legged walking robot in unknown rough terrain
+  - no abstract
+- **huang2009consolidation** (2009, ACM Transactions on Graphics; cites=517) [theme: PCA normal estimation]
+  - Consolidation of unorganized point clouds for surface reconstruction
+  - no abstract

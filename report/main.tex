@@ -1,0 +1,75 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{positioning}
+\graphicspath{{../figures/}{figures/}}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Shared math shortcuts used across sections.
+\newcommand{\nvec}{\hat{\mathbf{n}}}
+\newcommand{\zhat}{\hat{\mathbf{z}}}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+
+\title{Comparative Evaluation of Classical Geometric Methods for
+Steppable-Surface Segmentation in Simulated Staircase Point Clouds}
+
+\author{\IEEEauthorblockN{Riyadh Lakadimu}
+\IEEEauthorblockA{\textit{Master Program in Electrical Engineering} \\
+\textit{Politeknik Elektronika Negeri Surabaya (PENS)}\\
+Surabaya, Indonesia \\
+riyadhlakadimu724@gmail.com}}
+
+\maketitle
+
+\begin{abstract}
+Reliable identification of steppable surfaces is a prerequisite for
+stair-climbing and stair-following robots. This paper presents a controlled,
+fully labeled benchmark for steppable-surface segmentation built from a
+parametric mathematical model of a four-step staircase point cloud with
+LiDAR-style noise and outliers, and a systematic comparison of four classical
+geometric segmentation methods: orientation-gated RANSAC plane fitting,
+PCA-based normal analysis, orientation-aware DBSCAN clustering with slope
+analysis, and height-histogram analysis. On a cloud of 18{,}333 points, the
+DBSCAN-with-slope method attained the highest tread-class scores
+(F1~$=0.943$, IoU~$=0.892$), followed closely by PCA normal analysis
+(F1~$=0.927$). Plain RANSAC was the least precise because horizontal plane
+hypotheses absorb riser points at tread heights. A noise-sensitivity study
+shows the tread-class F1 degrading from $0.956$ to $0.543$ as the height
+noise $\sigma_z$ grows from $0.01$\,m to $0.07$\,m. We discuss the safety
+implications of these error modes for robotic stair traversal and argue for
+ensemble fusion with safety margins. The benchmark, code, and equations are
+released to support reproducible comparison.
+\end{abstract}
+
+\begin{IEEEkeywords}
+point cloud, segmentation, RANSAC, PCA, DBSCAN, staircase, mobile robot,
+traversability, LiDAR
+\end{IEEEkeywords}
+
+\input{sections/intro}
+\input{sections/related}
+\input{sections/method}
+\input{sections/evaluation}
+\input{sections/conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}

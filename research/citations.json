@@ -1,0 +1,222 @@
+[
+  {
+    "key": "sarker2024comprehensive",
+    "title": "A comprehensive overview of deep learning techniques for 3D point cloud classification and semantic segmentation",
+    "authors": "Sushmita Sarker and Prithul Sarker and Gunner Stone and Ryan Gorman and Alireza Tavakkoli and G. Bebis and J. Sattarvand",
+    "year": 2024,
+    "venue": "Machine Vision and Applications",
+    "doi": "10.1007/s00138-024-01543-1",
+    "citationCount": 76,
+    "theme": "semantic 3D segmentation",
+    "abstract": "Point cloud analysis has a wide range of applications in many areas such as computer vision, robotic manipulation, and autonomous driving. While deep learning has achieved remarkable success on image-based tasks, there are many unique challenges faced by deep neural networks in processing massive, unordered, irregular and noisy 3D points. To stimulate future research, this paper analyzes recent progress in deep learning methods employed for point cloud processing and presents challenges and potential directions to advance this field. It serves as a comprehensive review on two major tasks in 3D point cloud processing—namely, 3D shape classification and semantic segmentation."
+  },
+  {
+    "key": "zhou2024identification",
+    "title": "An Identification and Localization Method for 3D Workpiece Welds Based on the DBSCAN Point Cloud Clustering Algorithm",
+    "authors": "Nian Zhou and Ping Jiang and Shiliang Jiang and Leshi Shu and Xiaoxian Ni and Linjun Zhong",
+    "year": 2024,
+    "venue": "Journal of Manufacturing and Materials Processing",
+    "doi": "10.3390/jmmp8060287",
+    "citationCount": 12,
+    "theme": "DBSCAN clustering",
+    "abstract": "With the development of robotic welding automation, there is a strong interest in welding seam identification and localization methods with high accuracy, real-time performance, and robustness. This paper proposed a 3D workpiece weld identification and localization method based on DBSCAN (density-based spatial clustering of applications with noise) to realize stable feature extraction for multiple joint types. Firstly, this method employs combinatorial filtering to effectively eliminate non-target point clouds, including outliers and installation platform point clouds, which can minimize the computational load. Secondly, DBSCAN is used to classify workpiece point clouds into different clusters, which can be used for point cloud segmentation of flat workpieces and curved workpieces. Thirdly, the edge detection and feature extraction methods are used to obtain joint gap and weld feature points while combining the information of point clouds for different types of welds. Finally, based on the identification and localization of the welds, welding path planning and attitude planning are implemented. Experimentation results indicated that the proposed method exhibits robustness across various types of welded joints, including butt joints with straight seams, butt joints with curved seams, butt joints with curved workpieces, and lap joints. Meanwhile, the average error of joint gap detection was 0.11 mm and the processing time of a 90 mm straight-seam butt joint is 701.12 ms."
+  },
+  {
+    "key": "he2023prototype",
+    "title": "Prototype Adaption and Projection for Few- and Zero-Shot 3D Point Cloud Semantic Segmentation",
+    "authors": "Shuting He and Xudong Jiang and Wei Jiang and Henghui Ding",
+    "year": 2023,
+    "venue": "IEEE Transactions on Image Processing",
+    "doi": "10.1109/TIP.2023.3279660",
+    "citationCount": 75,
+    "theme": "semantic 3D segmentation",
+    "abstract": "In this work, we address the challenging task of few-shot and zero-shot 3D point cloud semantic segmentation. The success of few-shot semantic segmentation in 2D computer vision is mainly driven by the pre-training on large-scale datasets like imagenet. The feature extractor pre-trained on large-scale 2D datasets greatly helps the 2D few-shot learning. However, the development of 3D deep learning is hindered by the limited volume and instance modality of datasets due to the significant cost of 3D data collection and annotation. This results in less representative features and large intra-class feature variation for few-shot 3D point cloud segmentation. As a consequence, directly extending existing popular prototypical methods of 2D few-shot classification/segmentation into 3D point cloud segmentation won’t work as well as in 2D domain. To address this issue, we propose a Query-Guided Prototype Adaption (QGPA) module to adapt the prototype from support point clouds feature space to query point clouds feature space. With such prototype adaption, we greatly alleviate the issue of large feature intra-class variation in point cloud and significantly improve the performance of few-shot 3D segmentation. Besides, to enhance the representation of prototypes, we introduce a Self-Reconstruction (SR) module that enables prototype to reconstruct the support mask as well as possible. Moreover, we further consider zero-shot 3D point cloud semantic segmentation where there is no support sample. To this end, we introduce category words as semantic information and propose a semantic-visual projection model to bridge the semantic and visual spaces. Our proposed method surpasses state-of-the-art algorithms by a considerable 7.90% and 14.82% under the 2-way 1-shot setting on S3DIS and ScanNet benchmarks, respectively."
+  },
+  {
+    "key": "gomes2023survey",
+    "title": "A Survey on Ground Segmentation Methods for Automotive LiDAR Sensors",
+    "authors": "Tiago Gomes and D. Matias and Andre N. Campos and Luís Cunha and Ricardo Roriz",
+    "year": 2023,
+    "venue": "Italian National Conference on Sensors",
+    "doi": "10.3390/s23020601",
+    "citationCount": 39,
+    "theme": "LiDAR ground segmentation",
+    "abstract": "In the near future, autonomous vehicles with full self-driving features will populate our public roads. However, fully autonomous cars will require robust perception systems to safely navigate the environment, which includes cameras, RADAR devices, and Light Detection and Ranging (LiDAR) sensors. LiDAR is currently a key sensor for the future of autonomous driving since it can read the vehicle’s vicinity and provide a real-time 3D visualization of the surroundings through a point cloud representation. These features can assist the autonomous vehicle in several tasks, such as object identification and obstacle avoidance, accurate speed and distance measurements, road navigation, and more. However, it is crucial to detect the ground plane and road limits to safely navigate the environment, which requires extracting information from the point cloud to accurately detect common road boundaries. This article presents a survey of existing methods used to detect and extract ground points from LiDAR point clouds. It summarizes the already extensive literature and proposes a comprehensive taxonomy to help understand the current ground segmentation methods that can be used in automotive LiDAR sensors."
+  },
+  {
+    "key": "agarwal2022legged",
+    "title": "Legged Locomotion in Challenging Terrains using Egocentric Vision",
+    "authors": "Ananye Agarwal and Ashish Kumar and Jitendra Malik and Deepak Pathak",
+    "year": 2022,
+    "venue": "Conference on Robot Learning",
+    "doi": "10.48550/arXiv.2211.07638",
+    "citationCount": 314,
+    "theme": "elevation mapping",
+    "abstract": "Animals are capable of precise and agile locomotion using vision. Replicating this ability has been a long-standing goal in robotics. The traditional approach has been to decompose this problem into elevation mapping and foothold planning phases. The elevation mapping, however, is susceptible to failure and large noise artifacts, requires specialized hardware, and is biologically implausible. In this paper, we present the first end-to-end locomotion system capable of traversing stairs, curbs, stepping stones, and gaps. We show this result on a medium-sized quadruped robot using a single front-facing depth camera. The small size of the robot necessitates discovering specialized gait patterns not seen elsewhere. The egocentric camera requires the policy to remember past information to estimate the terrain under its hind feet. We train our policy in simulation. Training has two phases - first, we train a policy using reinforcement learning with a cheap-to-compute variant of depth image and then in phase 2 distill it into the final policy that uses depth using supervised learning. The resulting policy transfers to the real world and is able to run in real-time on the limited compute of the robot. It can traverse a large variety of terrain while being robust to perturbations like pushes, slippery surfaces, and rocky terrain. Videos are at https://vision-locomotion.github.io"
+  },
+  {
+    "key": "li2022hybridcr",
+    "title": "HybridCR: Weakly-Supervised 3D Point Cloud Semantic Segmentation via Hybrid Contrastive Regularization",
+    "authors": "Mengtian Li and Yuan Xie and Yunhang Shen and Bo Ke and Ruizhi Qiao and Bohan Ren and Shaohui Lin and Lizhuang Ma",
+    "year": 2022,
+    "venue": "Computer Vision and Pattern Recognition",
+    "doi": "10.1109/CVPR52688.2022.01451",
+    "citationCount": 103,
+    "theme": "semantic 3D segmentation",
+    "abstract": "To address the huge labeling cost in large-scale point cloud semantic segmentation, we propose a novel hybrid contrastive regularization (HybridCR) framework in weakly-supervised setting, which obtains competitive performance compared to its fully-supervised counterpart. Specifically, HybridCR is the first framework to leverage both point consistency and employ contrastive regularization with pseudo labeling in an end-to-end manner. Fundamentally, HybridCR explicitly and effectively considers the semantic similarity between local neighboring points and global characteristics of 3D classes. We further design a dynamic point cloud augmentor to generate diversity and robust sample views, whose transformation parameter is jointly optimized with model training. Through extensive experiments, HybridCR achieves significant performance improvement against the SOTA methods on both indoor and outdoor datasets, e.g., S3DIS, ScanNet-V2, Semantic3D, and SemanticKITTI."
+  },
+  {
+    "key": "matsumura2022deep",
+    "title": "Deep-Learning-Based Stair Detection Using 3D Point Cloud Data for Preventing Walking Accidents of the Visually Impaired",
+    "authors": "Haruka Matsumura and C. Premachandra",
+    "year": 2022,
+    "venue": "IEEE Access",
+    "doi": "10.1109/ACCESS.2022.3178154",
+    "citationCount": 30,
+    "theme": "stair detection",
+    "abstract": "Visually impaired individuals worldwide are at a risk of accidents while walking. In particular, falling from a raised place, such as stairs, can lead to serious injury. Therefore, we attempted to determine the best accident prevention method that can notify visually impaired individuals of the existence, height, and step information when they approach stairs. In this study, we have investigated stair detection through deep learning. First, the three-dimensional point cloud data generated from depth information are learned by deep learning. Stairs were detected using the results of deep learning. To apply the point cloud data for deep learning-based training, we proposed preprocessing stages to reduce the weight of the point cloud data. The accuracy of stair detection was 97.3%, which is the best performance compared to other conventional methods. Therefore, we confirmed the effectiveness of the proposed method."
+  },
+  {
+    "key": "jalal2021rgb",
+    "title": "RGB-D Images for Objects Recognition using 3D Point Clouds and RANSAC Plane Fitting",
+    "authors": "Ahmad Jalal and M. Sarwar and Kibum Kim",
+    "year": 2021,
+    "venue": "International Bhurban Conference on Applied Sciences and Technology",
+    "doi": "10.1109/IBCAST51254.2021.9393166",
+    "citationCount": 61,
+    "theme": "RANSAC 3D fitting",
+    "abstract": "in this paper, we highlighted object localization and recognition using RGB-D images that is top of RGB scenarios and provide semantically richer pixel-level support aps for individual object. Indeed, depth information levels with disparity-range of various objects in an image are used to extract objects of interest. Using proposed methodology, we extract point clouds from a depth image to proper plane fitting using Random Sample Consensus (RANSAC). RANSAC is challenging to handle the contour with thin edges. After local segmentation, we extracts various features like HOG and shape cues values to explore spatial properties of each object class. For object classification, we applied two well-known classifiers i.e., random forest (RF) and linear SVM. In the experimental evaluation, we achieved a gain of 16% relative improvement over current state-of-the-art methods. The proposed architecture can be used in autonomous cars, traffic monitoring and sports scenes."
+  },
+  {
+    "key": "zhou2021lsam",
+    "title": "π-LSAM: LiDAR Smoothing and Mapping With Planes",
+    "authors": "Lipu Zhou and Shengze Wang and M. Kaess",
+    "year": 2021,
+    "venue": "IEEE International Conference on Robotics and Automation",
+    "doi": "10.1109/ICRA48506.2021.9561933",
+    "citationCount": 56,
+    "theme": "plane detection LiDAR SLAM",
+    "abstract": "This paper introduces a real-time dense planar LiDAR SLAM system, named π-LSAM, for the indoor environment. The widely used LiDAR odometry and mapping (LOAM) framework [1] does not include bundle adjustment (BA) and generates a low fidelity tracking pose. This paper seeks to overcome these drawbacks for the indoor environment. Specifically, we use the plane as the landmark, and introduce plane adjustment (PA) as our back-end to jointly optimize planes and keyframe poses. We present the π-factor to significantly reduce the computational complexity of PA. In addition, we introduce an efficient loop detection algorithm based on the RANSAC framework using planes. In the front-end, our algorithm performs global registration in real time. To achieve this performance, we maintain the local-to-global point-to-plane correspondences scan by scan, so that we only need a small local KD-tree to establish the data association between a LiDAR scan and the global planes, rather than a large global KD-tree used in previous works. With this local-to-global data association, our algorithm directly identifies planes in a LiDAR scan, and yields an accurate and globally consistent pose. Experimental results show that our algorithm significantly outperforms the state-of-the-art LOAM variant, LeGO-LOAM [2], and our algorithm achieves real time."
+  },
+  {
+    "key": "xu2021object",
+    "title": "Object Detection Based on Fusion of Sparse Point Cloud and Image Information",
+    "authors": "Xiaobin Xu and Lei Zhang and Jian Yang and Chenfei Cao and Zhiying Tan and Minzhou Luo",
+    "year": 2021,
+    "venue": "IEEE Transactions on Instrumentation and Measurement",
+    "doi": "10.1109/TIM.2021.3102739",
+    "citationCount": 27,
+    "theme": "Euclidean clustering",
+    "abstract": "With the rapid development of mobile robots, environmental perception based on a single sensor can hardly meet the task requirements of the robots for object detection and path planning in complex scenarios. In this article, an object detection fusion algorithm based on both the information of the LiDAR point cloud and the camera image is proposed. First, YOLOv4 is used to detect the objects in the image. Then, the point cloud is projected into the image, and the target point cloud is filtered out according to the range of the 2-D detection frame. The target point cloud is used to perform density clustering and generate the output of a bounding box with semantic labels. Meanwhile, the original point cloud data are processed by an improved four-neighborhood clustering algorithm based on the Euclidean distance and angle threshold to generate the output of another bounding box without semantic labels. Finally, the clusters obtained by different methods are fused and judged to produce the output of the final object detection results. The test using the KITTI dataset shows that the accuracy of the improved four-neighbor clustering algorithm is increased to 0.835. The final semantic segmentation results have an average positioning error of 0.033 and 0.073 m in the $x$ - and $y$ -directions. The average angular error of the vehicle direction is 0.90°. Compared with the other two types of point cloud segmentation networks, our approach has the highest accuracy and sufficient real-time performance, which can reach 9.96 Hz in the experiment."
+  },
+  {
+    "key": "luo2021supervoxel",
+    "title": "Supervoxel-Based Region Growing Segmentation for Point Cloud Data",
+    "authors": "Nan Luo and Yuanyuan Jiang and Quan Wang",
+    "year": 2021,
+    "venue": "International journal of pattern recognition and artificial intelligence",
+    "doi": "10.1142/s0218001421540070",
+    "citationCount": 25,
+    "theme": "region growing",
+    "abstract": "Point cloud segmentation is a crucial fundamental step in 3D reconstruction, object recognition and scene understanding. This paper proposes a supervoxel-based point cloud segmentation algorithm in region growing principle to solve the issues of inaccurate boundaries and nonsmooth segments in the existing methods. To begin with, the input point cloud is voxelized and then pre-segmented into sparse supervoxels by flow constrained clustering, considering the spatial distance and local geometry between voxels. Afterwards, plane fitting is applied to the over-segmented supervoxels and seeds for region growing are selected with respect to the fitting residuals. Starting from pruned seed patches, adjacent supervoxels are merged in region growing style to form the final segments, according to the normalized similarity measure that integrates the smoothness and shape constraints of supervoxels. We determine the values of parameters via experimental tests, and the final results show that, by voxelizing and pre-segmenting the point clouds, the proposed algorithm is robust to noises and can obtain smooth segmentation regions with accurate boundaries in high efficiency."
+  },
+  {
+    "key": "zhao2020few",
+    "title": "Few-shot 3D Point Cloud Semantic Segmentation",
+    "authors": "Na Zhao and Tat-Seng Chua and Gim Hee Lee",
+    "year": 2020,
+    "venue": "Computer Vision and Pattern Recognition",
+    "doi": "10.1109/CVPR46437.2021.00876",
+    "citationCount": 150,
+    "theme": "semantic 3D segmentation",
+    "abstract": "Many existing approaches for 3D point cloud semantic segmentation are fully supervised. These fully supervised approaches heavily rely on large amounts of labeled training data that are difficult to obtain and cannot segment new classes after training. To mitigate these limitations, we propose a novel attention-aware multi-prototype transductive few-shot point cloud semantic segmentation method to segment new classes given a few labeled examples. Specifically, each class is represented by multiple prototypes to model the complex data distribution of labeled points. Subsequently, we employ a transductive label propagation method to exploit the affinities between labeled multi-prototypes and unlabeled points, and among the unlabeled points. Furthermore, we design an attention-aware multi-level feature learning network to learn the discriminative features that capture the geometric dependencies and semantic correlations between points. Our proposed method shows significant and consistent improvements compared to baselines in different few-shot point cloud semantic segmentation settings (i.e. 2/3-way 1/5-shot) on two benchmark datasets. Our code is available at https://github.com/Na-Z/attMPTI."
+  },
+  {
+    "key": "li2017improved",
+    "title": "An Improved RANSAC for 3D Point Cloud Plane Segmentation Based on Normal Distribution Transformation Cells",
+    "authors": "Lin Li and Fan Yang and Haihong Zhu and Dalin Li and You Li and Lei Tang",
+    "year": 2017,
+    "venue": "Remote Sensing",
+    "doi": "10.3390/rs9050433",
+    "citationCount": 272,
+    "theme": "RANSAC plane segmentation",
+    "abstract": "Plane segmentation is a basic task in the automatic reconstruction of indoor and urban environments from unorganized point clouds acquired by laser scanners. As one of the most common plane-segmentation methods, standard Random Sample Consensus (RANSAC) is often used to continually detect planes one after another. However, it suffers from the spurious-plane problem when noise and outliers exist due to the uncertainty of randomly sampling the minimum subset with 3 points. An improved RANSAC method based on Normal Distribution Transformation (NDT) cells is proposed in this study to avoid spurious planes for 3D point-cloud plane segmentation. A planar NDT cell is selected as a minimal sample in each iteration to ensure the correctness of sampling on the same plane surface. The 3D NDT represents the point cloud with a set of NDT cells and models the observed points with a normal distribution within each cell. The geometric appearances of NDT cells are used to classify the NDT cells into planar and non-planar cells. The proposed method is verified on three indoor scenes. The experimental results show that the correctness exceeds 88.5% and the completeness exceeds 85.0%, which indicates that the proposed method identifies more reliable and accurate planes than standard RANSAC. It also executes faster. These results validate the suitability of the method."
+  },
+  {
+    "key": "chavezgarcia2017learning",
+    "title": "Learning Ground Traversability From Simulations",
+    "authors": "R. O. Chavez-Garcia and Jérôme Guzzi and L. Gambardella and A. Giusti",
+    "year": 2017,
+    "venue": "IEEE Robotics and Automation Letters",
+    "doi": "10.1109/LRA.2018.2801794",
+    "citationCount": 111,
+    "theme": "traversability legged robot",
+    "abstract": "Mobile ground robots operating on unstructured terrain must predict which areas of the environment they are able to pass in order to plan feasible paths. We address traversability estimation as a heightmap classification problem: we build a convolutional neural network that, given an image representing the heightmap of a terrain patch, predicts whether the robot will be able to traverse such patch from left to right. The classifier is trained for a specific robot model (wheeled, tracked, legged, snake-like) using simulation data on procedurally generated training terrains; the trained classifier can be applied to unseen large heightmaps to yield oriented traversability maps, and then plan traversable paths. We extensively evaluate the approach in simulation on six real-world elevation dataset, and run a real-robot validation in one indoor and one outdoor environment."
+  },
+  {
+    "key": "marion2017director",
+    "title": "Director: A User Interface Designed for Robot Operation with Shared Autonomy",
+    "authors": "Pat Marion and M. Fallon and Robin Deits and Andres K. Valenzuela and Claudia Pérez-D'Arpino and Gregory Izatt and Lucas Manuelli and Matthew E. Antone and Hongkai Dai and T. Koolen and John Carter and S. Kuindersma and Russ Tedrake",
+    "year": 2017,
+    "venue": "J. Field Robotics",
+    "doi": "10.1002/rob.21681",
+    "citationCount": 63,
+    "theme": "stair-climbing robot",
+    "abstract": null
+  },
+  {
+    "key": "qi2016pointnet",
+    "title": "PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation",
+    "authors": "C. Qi and Hao Su and Kaichun Mo and L. Guibas",
+    "year": 2016,
+    "venue": "Computer Vision and Pattern Recognition",
+    "doi": "10.1109/CVPR.2017.16",
+    "citationCount": 17633,
+    "theme": "deep point-cloud segmentation",
+    "abstract": "Point cloud is an important type of geometric data structure. Due to its irregular format, most researchers transform such data to regular 3D voxel grids or collections of images. This, however, renders data unnecessarily voluminous and causes issues. In this paper, we design a novel type of neural network that directly consumes point clouds, which well respects the permutation invariance of points in the input. Our network, named PointNet, provides a unified architecture for applications ranging from object classification, part segmentation, to scene semantic parsing. Though simple, PointNet is highly efficient and effective. Empirically, it shows strong performance on par or even better than state of the art. Theoretically, we provide analysis towards understanding of what the network has learnt and why the network is robust with respect to input perturbation and corruption."
+  },
+  {
+    "key": "belter2016adaptive",
+    "title": "Adaptive Motion Planning for Autonomous Rough Terrain Traversal with a Walking Robot",
+    "authors": "D. Belter and Przemyslaw Labecki and P. Skrzypczyński",
+    "year": 2016,
+    "venue": "J. Field Robotics",
+    "doi": "10.1002/rob.21610",
+    "citationCount": 81,
+    "theme": "elevation mapping",
+    "abstract": null
+  },
+  {
+    "key": "castillo2013point",
+    "title": "Point Cloud Segmentation and Denoising via Constrained Nonlinear Least Squares Normal Estimates",
+    "authors": "E. Castillo and Jian Liang and Hongkai Zhao",
+    "year": 2013,
+    "venue": "Innovations for Shape Analysis, Models and Algorithms",
+    "doi": "10.1007/978-3-642-34141-0_13",
+    "citationCount": 59,
+    "theme": "PCA normal estimation",
+    "abstract": null
+  },
+  {
+    "key": "stelzer2012stereo",
+    "title": "Stereo-vision-based navigation of a six-legged walking robot in unknown rough terrain",
+    "authors": "A. Stelzer and H. Hirschmüller and M. Görner",
+    "year": 2012,
+    "venue": "Int. J. Robotics Res.",
+    "doi": "10.1177/0278364911435161",
+    "citationCount": 128,
+    "theme": "traversability legged robot",
+    "abstract": null
+  },
+  {
+    "key": "huang2009consolidation",
+    "title": "Consolidation of unorganized point clouds for surface reconstruction",
+    "authors": "Hui Huang and Dan Li and Hao Zhang and U. Ascher and D. Cohen-Or",
+    "year": 2009,
+    "venue": "ACM Transactions on Graphics",
+    "doi": "10.1145/1661412.1618522",
+    "citationCount": 517,
+    "theme": "PCA normal estimation",
+    "abstract": null
+  }
+]

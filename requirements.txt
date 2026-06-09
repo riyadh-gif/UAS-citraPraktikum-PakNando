@@ -1,0 +1,8 @@
+numpy>=2.0
+scipy>=1.13
+scikit-learn>=1.5
+matplotlib>=3.8
+# notebook execution (optional)
+nbformat>=5.10
+nbconvert>=7.16
+ipykernel>=6.29
