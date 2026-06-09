@@ -22,6 +22,9 @@ paper/
 # Raw Semantic Scholar API dumps (provenance only; curated output in research/citations.*)
 research/raw/
 
+# Delivery bundle for Google Drive (duplicate copies of final artifacts)
+delivery/
+
 # OS
 Thumbs.db
 .DS_Store
