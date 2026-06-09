@@ -1,25 +1,23 @@
 \section{Evaluation}
 \label{sec:evaluation}
 
-This section reports the empirical comparison of the four classical
-segmentation methods on the parametric staircase point cloud. We first
-describe the experimental setup and the metrics used (A), then present and
-interpret the quantitative results (B), study robustness under increasing
-height noise (C), and finally discuss the safety implications for
-stair-following robots (D).
+This section compares the four classical segmentation methods on the
+parametric staircase point cloud. The setup and metrics come first (A),
+followed by the quantitative results and their interpretation (B). We then
+examine robustness as height noise grows (C) and close with the safety
+implications for stair-following robots (D).
 
 \subsection{Experimental Setup and Metrics}
 
-All experiments were performed on the synthetic staircase introduced in
+All experiments ran on the synthetic staircase from
 Section~\ref{sec:method}, with $N=4$ steps, width $w=2.5$\,m, tread depth
-$d=0.30$\,m, and step height $h=0.18$\,m. The generated cloud contains
-$18{,}333$ points, partitioned into $12{,}800$ tread points (label~0),
-$4{,}800$ riser points (label~1), and $733$ ``other'' points
-(label~2) arising from edges, LiDAR jitter, and the injected outliers.
+$d=0.30$\,m, and step height $h=0.18$\,m. The generated cloud holds
+$18{,}333$ points: $12{,}800$ tread points (label~0), $4{,}800$ riser
+points (label~1), and $733$ ``other'' points (label~2) that come from
+edges, LiDAR jitter, and the injected outliers.
 Figure~\ref{fig:profile} shows the $y$--$z$ side profile of the
-ground-truth cloud, in which the alternating horizontal treads and
-vertical risers of the staircase are clearly visible together with the
-sparse off-surface clutter.
+ground-truth cloud. The alternating horizontal treads and vertical risers
+stand out clearly, along with the sparse off-surface clutter.
 
 \begin{figure}[t]\centering
 \includegraphics[width=0.95\columnwidth]{profile_ground_truth.png}
@@ -27,42 +25,41 @@ sparse off-surface clutter.
 \label{fig:profile}
 \end{figure}
 
-Because the steppable surface is the safety-critical class, we evaluate
-every method on the tread label in a one-vs-rest setting: tread points are
-treated as positives and all riser and ``other'' points as negatives.
+The steppable surface is the safety-critical class, so we score every
+method on the tread label in a one-vs-rest setting: tread points are
+positives, and all riser and ``other'' points are negatives.
 Let $TP$, $FP$, $FN$, and $TN$ denote the per-point true positives, false
 positives, false negatives, and true negatives. We report five standard
-quantities, all computed for the tread class in this one-vs-rest setting.
-The tabulated accuracy $\mathrm{Acc}=(TP{+}TN)/(TP{+}TN{+}FP{+}FN)$ is the
-fraction of points correctly placed inside or outside the tread class. In the
-text we additionally quote the overall \emph{three-class} accuracy, defined as
-the fraction of all points whose full tread/riser/other label is correct; this
-is a distinct quantity from the one-vs-rest $\mathrm{Acc}$ of
+quantities, each computed for the tread class under this one-vs-rest
+scheme. The tabulated accuracy $\mathrm{Acc}=(TP{+}TN)/(TP{+}TN{+}FP{+}FN)$
+is the fraction of points placed correctly inside or outside the tread
+class. In the text we also quote the overall \emph{three-class} accuracy,
+the fraction of all points whose full tread/riser/other label is correct;
+this differs from the one-vs-rest $\mathrm{Acc}$ of
 Table~\ref{tab:metrics}. Precision
 $\mathrm{P}=TP/(TP{+}FP)$ is the fraction of predicted tread points that
-are genuinely treads, and recall $\mathrm{R}=TP/(TP{+}FN)$ is the fraction
-of true tread points that are recovered. The F1 score is their harmonic
+are genuinely treads, while recall $\mathrm{R}=TP/(TP{+}FN)$ is the
+fraction of true tread points recovered. The F1 score is their harmonic
 mean, $\mathrm{F1}=2\mathrm{P}\mathrm{R}/(\mathrm{P}{+}\mathrm{R})$, and the
 intersection-over-union, or Jaccard index,
 $\mathrm{IoU}=TP/(TP{+}FP{+}FN)$, expresses the spatial overlap between the
-predicted and ground-truth tread regions. For robotic foothold reasoning,
-precision and IoU are the most informative measures, since they directly
-quantify how often a non-steppable surface is mistaken for a steppable one.
+predicted and ground-truth tread regions. Precision and IoU matter most
+for robotic foothold reasoning, because they directly measure how often a
+non-steppable surface is taken for a steppable one.
 
-To guarantee reproducibility, the data generator and every stochastic
+Reproducibility was a design goal. The data generator and every stochastic
 component of the pipeline (RANSAC sampling, neighbour selection, and the
-noise draws) were driven by a fixed pseudo-random seed, so the cloud and
-all reported numbers regenerate deterministically. Method
-hyper-parameters were held constant across all runs: RANSAC used an inlier
-threshold $\tau=0.035$\,m, PCA normals were estimated from $k=50$
-neighbours, and DBSCAN used $\varepsilon=0.08$\,m within each orientation
-group.
+noise draws) ran from a fixed pseudo-random seed, so the cloud and all
+reported numbers regenerate deterministically. Method hyper-parameters
+stayed constant across runs: RANSAC used an inlier threshold
+$\tau=0.035$\,m, PCA normals were estimated from $k=50$ neighbours, and
+DBSCAN used $\varepsilon=0.08$\,m within each orientation group.
 
 \subsection{Results}
 
 Table~\ref{tab:metrics} summarises the tread-class performance of the four
-methods, and Fig.~\ref{fig:bars} visualises the corresponding F1 and IoU
-scores side by side.
+methods, and Fig.~\ref{fig:bars} places their F1 and IoU scores side by
+side.
 
 \begin{table}[t]
 \caption{Tread-class segmentation metrics (one-vs-rest). Acc is one-vs-rest
@@ -96,15 +93,16 @@ Height-Histogram& 0.827 & 0.809 & \textbf{0.984} & 0.888 & 0.799 \\
 \label{fig:bars}
 \end{figure}
 
-The orientation-aware \textbf{DBSCAN-Slope} method is the strongest overall,
-attaining the best F1 ($0.943$) and IoU ($0.892$) as well as the highest
-three-class accuracy ($0.909$). By pre-splitting the cloud into horizontal
-and vertical orientation groups and only then clustering spatially, each
-physical surface is recovered as a single compact cluster while outliers
-are absorbed into the noise label, yielding a balanced precision ($0.936$)
-and recall ($0.949$). Figure~\ref{fig:seg3d} contrasts the DBSCAN-Slope
-segmentation with the ground truth, showing that the individual treads are
-cleanly separated and that riser bleed-through is minimal.
+The orientation-aware \textbf{DBSCAN-Slope} method leads overall. It
+attains the best F1 ($0.943$) and IoU ($0.892$) and the highest three-class
+accuracy ($0.909$). The reason is its order of operations: by first
+splitting the cloud into horizontal and vertical orientation groups and
+clustering spatially only afterwards, it recovers each physical surface as
+a single compact cluster and absorbs outliers into the noise label. The
+result is a balanced precision ($0.936$) and recall ($0.949$).
+Figure~\ref{fig:seg3d} sets the DBSCAN-Slope segmentation against the
+ground truth; the individual treads separate cleanly, and riser
+bleed-through is minimal.
 
 \begin{figure}[t]\centering
 \includegraphics[width=\columnwidth]{seg_dbscan_slope.png}
@@ -112,27 +110,27 @@ cleanly separated and that riser bleed-through is minimal.
 \label{fig:seg3d}
 \end{figure}
 
-The \textbf{PCA-Normals} method follows closely, with F1 $0.927$ and IoU
-$0.864$. Because it classifies points directly from the local surface
-orientation $|\nvec^\top\zhat|$, it achieves the highest precision of all
-methods ($0.954$): a point is only labelled as tread when its estimated
-normal is nearly vertical, so very few risers are admitted. Its recall
-($0.901$) is marginally lower than DBSCAN's because normals estimated near
-tread--riser edges become unreliable and a fraction of genuine tread points
-fall outside the horizontal gate. The small gap between PCA-Normals and
-DBSCAN-Slope confirms that local geometric orientation is an effective and
+The \textbf{PCA-Normals} method follows close behind, with F1 $0.927$ and
+IoU $0.864$. It classifies points directly from the local surface
+orientation $|\nvec^\top\zhat|$, and this earns it the highest precision of
+any method ($0.954$): a point is labelled tread only when its estimated
+normal is nearly vertical, so very few risers slip through. Recall
+($0.901$) sits marginally below DBSCAN's, because normals estimated near
+tread--riser edges grow unreliable and a fraction of genuine tread points
+fall outside the horizontal gate. The narrow gap between PCA-Normals and
+DBSCAN-Slope confirms that local geometric orientation is an effective,
 robust cue for separating the two principal surface types.
 
-The \textbf{Height-Histogram} method behaves as a high-recall, lower-precision
-detector. It attains the best recall of all methods ($0.984$) but a markedly
-lower precision ($0.809$), giving F1 $0.888$ and IoU $0.799$.
-Figure~\ref{fig:hist} shows the $z$-histogram, whose four pronounced peaks
-correspond to the detected tread levels at
-$z\approx\{0.00,0.18,0.36,0.54\}$\,m, in close agreement with the nominal
-step heights. The method captures almost every tread point because treads
-concentrate sharply at these levels; however, the horizontal bands it
+The \textbf{Height-Histogram} method acts as a high-recall,
+lower-precision detector. It reaches the best recall of any method
+($0.984$) but a markedly lower precision ($0.809$), giving F1 $0.888$ and
+IoU $0.799$. Figure~\ref{fig:hist} shows the $z$-histogram, whose four
+pronounced peaks correspond to the detected tread levels at
+$z\approx\{0.00,0.18,0.36,0.54\}$\,m, close to the nominal step heights.
+The method captures almost every tread point because treads concentrate
+sharply at these levels. The trouble is that the horizontal bands it
 assigns around each peak also enclose riser points whose vertical extent
-happens to pass through a tread height, which depresses precision.
+happens to pass through a tread height, and that drags precision down.
 
 \begin{figure}[t]\centering
 \begin{tikzpicture}
@@ -149,27 +147,28 @@ happens to pass through a tread height, which depresses precision.
 \label{fig:hist}
 \end{figure}
 
-Plain \textbf{RANSAC} plane fitting is the weakest performer, with the lowest
-precision ($0.714$), F1 ($0.798$), IoU ($0.664$), and three-class accuracy
-($0.667$), despite a high recall ($0.904$). The dominant failure mode is
-that the large horizontal planes RANSAC fits at each tread height also
-absorb riser points that lie within the inlier band $\tau$ at those
-heights; these mislabelled risers inflate the false-positive count and
-collapse precision. The contrast with PCA-Normals is instructive: a global
-planar fit cannot distinguish a riser point that merely happens to sit near
-a tread plane from a true tread point, whereas a local normal can. This
-explains why per-point orientation cues, used by both PCA-Normals and
-DBSCAN-Slope, dominate the purely planar formulation.
+Plain \textbf{RANSAC} plane fitting is the weakest performer. It posts the
+lowest precision ($0.714$), F1 ($0.798$), IoU ($0.664$), and three-class
+accuracy ($0.667$), even with a high recall ($0.904$). One failure mode
+dominates: the large horizontal planes RANSAC fits at each tread height
+also swallow riser points that lie within the inlier band $\tau$ at those
+heights. These mislabelled risers inflate the false-positive count and
+collapse precision. The contrast with PCA-Normals is telling. A global
+planar fit cannot tell a riser point that merely sits near a tread plane
+from a true tread point, whereas a local normal can. This is why the
+per-point orientation cues in PCA-Normals and DBSCAN-Slope beat the purely
+planar formulation.
 
 \subsection{Noise Sensitivity}
 
-To probe robustness, we swept the height-noise standard deviation $\sigma_z$
-from $0.01$\,m to $0.07$\,m and re-evaluated the PCA-Normals method, whose
-accuracy depends most directly on the fidelity of local geometry. We vary
-$\sigma_z$ rather than the riser depth jitter $\sigma_y$ because vertical jitter
-is the axis that directly erodes the tread/riser orientation contrast, whereas
-$\sigma_y$ mainly broadens riser planes without moving tread points across step
-levels. Figure~\ref{fig:noise} plots the resulting tread-class F1 and IoU.
+To probe robustness, we swept the height-noise standard deviation
+$\sigma_z$ from $0.01$\,m to $0.07$\,m and re-evaluated PCA-Normals, whose
+accuracy hinges most directly on the fidelity of local geometry. We vary
+$\sigma_z$ rather than the riser depth jitter $\sigma_y$ because vertical
+jitter is the axis that erodes the tread/riser orientation contrast,
+whereas $\sigma_y$ mostly broadens riser planes without moving tread points
+across step levels. Figure~\ref{fig:noise} plots the resulting tread-class
+F1 and IoU.
 
 \begin{figure}[t]\centering
 \begin{tikzpicture}
@@ -184,70 +183,71 @@ levels. Figure~\ref{fig:noise} plots the resulting tread-class F1 and IoU.
 \label{fig:noise}
 \end{figure}
 
-Performance degrades monotonically and increasingly steeply as the noise
+Performance degrades monotonically, and the slope steepens as the noise
 grows. At $\sigma_z=0.01$\,m the method is near-ideal (F1 $0.956$, IoU
-$0.915$), and it remains strong through $\sigma_z=0.02$--$0.03$\,m. Beyond
-this point the decline accelerates, falling to F1 $0.543$ and IoU $0.373$ at
-$\sigma_z=0.07$\,m. The mechanism is geometric: the discriminative cue is
-the near-vertical tread normal, but as $\sigma_z$ approaches half the step
+$0.915$), and it holds up well through $\sigma_z=0.02$--$0.03$\,m. Past that
+point the decline accelerates, reaching F1 $0.543$ and IoU $0.373$ at
+$\sigma_z=0.07$\,m. The mechanism is geometric. The discriminative cue is
+the near-vertical tread normal, but once $\sigma_z$ approaches half the step
 height ($h/2=0.09$\,m), vertical jitter on tread points becomes comparable
-to the vertical separation between adjacent steps. The local neighbourhoods
-used for normal estimation then mix points from neighbouring treads and the
-intervening riser, so estimated normals tilt away from vertical, the
-horizontal orientation gate misfires, and tread and riser become
-geometrically indistinguishable. This identifies a practical operating
-limit: reliable tread segmentation requires the sensor's per-point height
-noise to stay well below the step height it must resolve.
+to the vertical gap between adjacent steps. The local neighbourhoods used
+for normal estimation then mix points from neighbouring treads and the
+intervening riser, the estimated normals tilt away from vertical, the
+horizontal orientation gate misfires, and tread and riser turn
+geometrically indistinguishable. This marks a practical operating limit:
+reliable tread segmentation needs the sensor's per-point height noise to
+stay well below the step height it must resolve.
 
 \subsection{Limitations and Threats to Validity}
 
-Several limitations bound the scope of these conclusions. First, the benchmark
-is synthetic: a single straight-flight, rectangular staircase with one fixed
-geometry $(w,d,h,N)$ and an idealised, axis- and gravity-aligned layout. The
-absolute scores should therefore be read as \emph{relative} method rankings
-rather than field-deployable accuracies. Second, the sensor model is a nominal
-Gaussian jitter plus uniform outliers; it omits occlusion, missing returns,
-incidence-angle effects, multi-path, and the structured scan patterns of a real
-LiDAR. Third, the height-histogram method explicitly assumes a regular,
-gravity-aligned staircase and would not transfer to spiral, open-riser, or
-unaligned scans without modification. Fourth, every hyper-parameter
-($\tau$, $k$, $\varepsilon$, the orientation gates, and the histogram window)
-was tuned once on this cloud, and the sensitivity study varies only $\sigma_z$
-for a single method; we therefore make no claim of cross-configuration
-parameter robustness. These constraints motivate the real-sensor validation
-identified in Section~\ref{sec:conclusion}.
+Several limitations bound these conclusions. The benchmark is synthetic, a
+single straight-flight, rectangular staircase with one fixed geometry
+$(w,d,h,N)$ and an idealised, axis- and gravity-aligned layout. The
+absolute scores should therefore be read as \emph{relative} method
+rankings, not field-deployable accuracies. The sensor model is also
+simplified: nominal Gaussian jitter plus uniform outliers, with no
+occlusion, missing returns, incidence-angle effects, multi-path, or the
+structured scan patterns of a real LiDAR. The height-histogram method, for
+its part, assumes a regular, gravity-aligned staircase and would not
+transfer to spiral, open-riser, or unaligned scans without modification.
+Finally, every hyper-parameter ($\tau$, $k$, $\varepsilon$, the orientation
+gates, and the histogram window) was tuned once on this cloud, and the
+sensitivity study varies only $\sigma_z$ for a single method, so we make no
+claim of cross-configuration parameter robustness. These constraints
+motivate the real-sensor validation identified in
+Section~\ref{sec:conclusion}.
 
 \subsection{Safety Discussion for Stair-Following Robots}
 
-For a stair-climbing or stair-following robot, the value of these results
+For a stair-climbing or stair-following robot, the worth of these results
 lies less in the average score than in the failure modes they expose. The
-best method reaches IoU $\approx 0.89$, which is sufficient to support
-\emph{coarse} foothold planning: the extracted tread regions overlap the
-true steppable surfaces strongly enough for an elevation-map-based planner
-to place candidate footholds on the correct steps, consistent with
-practice in legged and wheeled terrain perception
-\cite{chavezgarcia2017learning,gomes2023survey}. However, no method reaches
-unit precision, and the dominant errors are precisely the dangerous ones:
-riser points are occasionally labelled as steppable. In a closed control
-loop such false positives can lead a controller to commit a foothold to a
-vertical face, the failure mode that motivates dedicated stair perception
-in the first place \cite{matsumura2022deep}.
+best method reaches IoU $\approx 0.89$, enough to support \emph{coarse}
+foothold planning: the extracted tread regions overlap the true steppable
+surfaces strongly enough for an elevation-map-based planner to place
+candidate footholds on the correct steps, in line with practice in legged
+and wheeled terrain perception
+\cite{chavezgarcia2017learning,gomes2023survey}. Yet no method reaches unit
+precision, and the dominant errors are exactly the dangerous ones: riser
+points occasionally read as steppable. Inside a closed control loop such
+false positives can lead a controller to commit a foothold to a vertical
+face, the very failure mode that motivates dedicated stair perception
+\cite{matsumura2022deep}.
 
 We therefore recommend that a deployed system treat the raw per-point
 labels as a hypothesis rather than a command. Three mitigations follow
-directly from our findings. First, since the methods fail in complementary
-ways---RANSAC and the histogram over-include risers while PCA-Normals is
-conservative---\emph{ensemble voting} across methods can suppress
-method-specific false positives and combine the high recall of the
-histogram with the high precision of the normal-based gate.
-Second, because mislabelling concentrates at tread--riser boundaries, a
-\emph{tread-edge erosion margin} that shrinks each accepted tread region
-inward before foothold selection trades a small amount of usable surface
-for a sharp reduction in the chance of stepping onto an edge or riser.
-Third, given the strong noise sensitivity established above, \emph{temporal
-verification}---accumulating evidence across consecutive scans before
-committing a foothold---guards against transient mislabels caused by
-momentary high-noise frames. Together these measures convert a
-segmentation that is accurate on average into one whose residual errors are
-biased toward the safe side, which is the appropriate design objective for
-robots that physically traverse stairs.
+directly from our findings. The first is \emph{ensemble voting} across
+methods. Because the methods fail in complementary ways (RANSAC and the
+histogram over-include risers, while PCA-Normals stays conservative),
+voting can suppress method-specific false positives and combine the
+histogram's high recall with the precision of the normal-based gate.
+The second is a \emph{tread-edge erosion margin}. Mislabelling concentrates
+at tread--riser boundaries, so shrinking each accepted tread region inward
+before foothold selection trades a small amount of usable surface for a
+sharp drop in the chance of stepping onto an edge or riser.
+The third is \emph{temporal verification}. Given the strong noise
+sensitivity established above, accumulating evidence across consecutive
+scans before committing a foothold guards against transient mislabels
+caused by momentary high-noise frames. Together these measures convert a
+segmentation that is accurate on average into one whose residual errors
+lean toward the safe side, which is the right design objective for robots
+that physically traverse stairs.

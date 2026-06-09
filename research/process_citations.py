@@ -89,7 +89,8 @@ def bib_type(p):
     return "misc", "howpublished"
 
 def esc(s):
-    return (s or "").replace("&", "\\&").replace("%", "\\%").replace("_", "\\_")
+    s = (s or "").replace("π", "{$\\pi$}")
+    return s.replace("&", "\\&").replace("%", "\\%").replace("_", "\\_")
 
 bib_lines, md_lines, json_out = [], [], []
 md_lines.append("# Citation pool (20 refs) — use ONLY these \\cite keys\n")
@@ -105,7 +106,7 @@ for p in selected:
              f"  {vfield} = {{{esc(venue)}}},",
              f"  year = {{{p['year']}}},"]
     if doi:
-        entry.append(f"  doi = {{{doi}}},")
+        entry.append(f"  url = {{https://doi.org/{doi}}},")
     entry.append("}")
     bib_lines.append("\n".join(entry))
 
