@@ -16,6 +16,12 @@ report/pg-*.png
 # Secrets — never commit the API key
 semanticapi.txt
 
+# Provided IEEE template archives (reference only; cls/bst live in report/)
+paper/
+
+# Raw Semantic Scholar API dumps (provenance only; curated output in research/citations.*)
+research/raw/
+
 # OS
 Thumbs.db
 .DS_Store
