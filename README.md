@@ -31,6 +31,8 @@ metrics.json             # all reported numbers
 report/                  # IEEE conference paper (LaTeX)
   main.tex, sections/, data/, refs.bib, main.pdf
   export_data.py         # emits report/data/*.dat for pgfplots
+slides/                  # presentation deck (16:9, 9 slides)
+  build_slides.py, presentasi.pptx
 research/                # citation harvest + outline + peer-review notes
 requirements.txt
 ```
