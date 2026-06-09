@@ -59,10 +59,6 @@ def header(slide, title, kicker=None):
     _set(tf.paragraphs[0], title, 30, True, WHITE)
     if kicker:
         p = tf.add_paragraph(); _set(p, kicker, 14, False, RGBColor(0xCB, 0xDC, 0xF0))
-    # page number
-    pn = slide.shapes.add_textbox(SW - Inches(1.1), SH - Inches(0.55), Inches(0.9), Inches(0.4))
-    _set(pn.text_frame.paragraphs[0], "", 12, False, GREY)
-    return pn
 
 
 def bullets(slide, items, left, top, width, height, size=18, gap=6):
@@ -92,7 +88,7 @@ def caption(slide, text, left, top, width):
 
 # ---------------------------------------------------------------- Slide 1 title
 s = add_slide()
-big = slide_bg = s.shapes.add_shape(1, 0, 0, SW, SH)
+big = s.shapes.add_shape(1, 0, 0, SW, SH)
 big.fill.solid(); big.fill.fore_color.rgb = NAVY; big.line.fill.background()
 big.shadow.inherit = False
 accent = s.shapes.add_shape(1, 0, Inches(5.0), SW, Inches(0.12))
@@ -101,85 +97,85 @@ accent.shadow.inherit = False
 tb = s.shapes.add_textbox(Inches(0.9), Inches(1.6), SW - Inches(1.8), Inches(3.2))
 tf = tb.text_frame; tf.word_wrap = True
 _set(tf.paragraphs[0],
-     "Segmentasi Permukaan Dapat-Dipijak pada Point Cloud Anak Tangga", 36, True, WHITE)
+     "Steppable-Surface Segmentation in Simulated Staircase Point Clouds", 36, True, WHITE)
 p = tf.add_paragraph()
-_set(p, "Perbandingan RANSAC, Analisis Normal PCA, DBSCAN, dan Histogram Ketinggian",
+_set(p, "A Comparison of RANSAC, PCA Normal Analysis, DBSCAN, and Height-Histogram Methods",
      18, False, RGBColor(0xCB, 0xDC, 0xF0))
 sub = s.shapes.add_textbox(Inches(0.9), Inches(5.3), SW - Inches(1.8), Inches(1.6))
 tf2 = sub.text_frame; tf2.word_wrap = True
 _set(tf2.paragraphs[0], "Riyadh Lakadimu", 20, True, WHITE)
-for t in ["Magister Teknik Elektro - Politeknik Elektronika Negeri Surabaya (PENS)",
-          "Mata Kuliah: Sensor dan Sistem Pengolahan Sinyal (UAS)"]:
+for t in ["Master Program in Electrical Engineering - Politeknik Elektronika Negeri Surabaya (PENS)",
+          "Course: Sensor and Signal Processing Systems (Final Project)"]:
     pp = tf2.add_paragraph(); _set(pp, t, 14, False, RGBColor(0xCB, 0xDC, 0xF0))
 
-# ---------------------------------------------------------------- Slide 2 latar
-s = add_slide(); header(s, "Latar Belakang & Tujuan", "Pendahuluan")
+# ---------------------------------------------------------------- Slide 2 motivation
+s = add_slide(); header(s, "Background & Objectives", "Introduction")
 bullets(s, [
-    ("Robot pemanjat/pengikut tangga & alat bantu tunanetra butuh deteksi 3D yang andal.", 0, False, DARK),
-    ("Harus bedakan permukaan dapat-dipijak (tread) dari bagian vertikal (riser) & noise.", 0, False, DARK),
-    ("Salah label riser jadi 'dapat dipijak' -> pijakan ke bidang vertikal -> bahaya jatuh.", 1, False, RED),
-    ("Metode deep learning butuh data berlabel besar & kurang interpretable.", 0, False, DARK),
-    ("Belum ada benchmark terkontrol dengan ground-truth eksak untuk sub-masalah ini.", 1, False, DARK),
-    ("Tujuan:", 0, True, NAVY),
-    ("Generasi point cloud anak tangga 4-step dari model matematis berlabel.", 1, False, DARK),
-    ("Implementasi & bandingkan 4 metode geometris klasik.", 1, False, DARK),
-    ("Evaluasi kuantitatif + analisis noise + diskusi keamanan robot.", 1, False, DARK),
+    ("Stair-climbing/following robots and assistive devices need reliable 3D perception.", 0, False, DARK),
+    ("Must separate steppable surfaces (tread) from vertical faces (riser) and noise.", 0, False, DARK),
+    ("Mislabeling a riser as steppable -> foothold onto a vertical face -> fall hazard.", 1, False, RED),
+    ("Deep-learning methods need large labeled data and lack interpretability.", 0, False, DARK),
+    ("No controlled benchmark with exact ground-truth labels for this sub-problem.", 1, False, DARK),
+    ("Objectives:", 0, True, NAVY),
+    ("Generate a labeled 4-step staircase point cloud from a mathematical model.", 1, False, DARK),
+    ("Implement and compare four classical geometric methods.", 1, False, DARK),
+    ("Quantitative evaluation + noise analysis + robot-safety discussion.", 1, False, DARK),
 ], Inches(0.6), Inches(1.45), SW - Inches(1.2), Inches(5.6), size=20)
 
 # ---------------------------------------------------------------- Slide 3 data
-s = add_slide(); header(s, "Generasi Data Point Cloud", "Model matematis 4-step")
+s = add_slide(); header(s, "Point Cloud Data Generation", "Mathematical 4-step model")
 bullets(s, [
-    ("Parameter: lebar w=2.5 m, kedalaman d=0.30 m, tinggi h=0.18 m, N=4 step.", 0, False, DARK),
+    ("Parameters: width w=2.5 m, depth d=0.30 m, height h=0.18 m, N=4 steps.", 0, False, DARK),
     ("Tread (i=0..3):", 0, True, GREEN),
     ("x~U(0,w),  y~U(i·d,(i+1)·d),  z=i·h+εz,  εz~N(0,0.02²)", 1, False, DARK),
     ("Riser (i=1..3):", 0, True, RED),
     ("x~U(0,w),  y=i·d+εy,  z~U((i-1)·h, i·h)", 1, False, DARK),
-    ("+ outlier acak ~4% dan jitter LiDAR N(0,0.005²).", 0, False, DARK),
-    (f"Total {METRICS['point_counts']['total']:,} titik "
+    ("+ ~4% random outliers and LiDAR jitter N(0,0.005²).", 0, False, DARK),
+    (f"Total {METRICS['point_counts']['total']:,} points "
      f"({METRICS['point_counts']['tread']:,} tread / "
      f"{METRICS['point_counts']['riser']:,} riser / "
      f"{METRICS['point_counts']['other']} other).", 0, True, NAVY),
 ], Inches(0.6), Inches(1.45), Inches(6.4), Inches(5.6), size=18)
 pic(s, "profile_ground_truth.png", Inches(7.2), Inches(1.7), width=Inches(5.7))
-caption(s, "Profil samping (y-z): hijau=tread, merah=riser, abu=lainnya",
+caption(s, "Side profile (y-z): green=tread, red=riser, grey=other",
         Inches(7.2), Inches(6.35), Inches(5.7))
 
-# ---------------------------------------------------------------- Slide 4 metode overview
-s = add_slide(); header(s, "Empat Metode Segmentasi", "Skema 3 kelas: tread / riser / lainnya")
+# ---------------------------------------------------------------- Slide 4 methods overview
+s = add_slide(); header(s, "Four Segmentation Methods", "Three-class scheme: tread / riser / other")
 bullets(s, [
     ("1. RANSAC Plane Fitting (orientation-gated)", 0, True, NAVY),
-    ("Fase horizontal -> tread, fase vertikal -> riser; tolak bidang 'ramp' miring.", 1, False, DARK),
-    ("2. Analisis Normal PCA", 0, True, NAVY),
-    ("Normal per-titik via PCA k-NN; klasifikasi dari kemiringan |n·z|.", 1, False, DARK),
-    ("3. DBSCAN + Analisis Kemiringan", 0, True, NAVY),
-    ("Split orientasi -> klaster spasial -> konfirmasi slope tiap klaster.", 1, False, DARK),
-    ("4. Analisis Histogram Ketinggian (lanjutan)", 0, True, NAVY),
-    ("Puncak histogram z = level tread; pita antar-level = riser.", 1, False, DARK),
-    ("Wajib min. 2 metode -> diimplementasikan 4 untuk perbandingan menyeluruh.", 0, True, GREEN),
+    ("Horizontal phase -> tread, vertical phase -> riser; rejects the oblique 'ramp' plane.", 1, False, DARK),
+    ("2. PCA Normal Analysis", 0, True, NAVY),
+    ("Per-point normals via PCA over k-NN; classified by tilt |n·z|.", 1, False, DARK),
+    ("3. DBSCAN + Slope Analysis", 0, True, NAVY),
+    ("Orientation split -> spatial clustering -> per-cluster slope confirmation.", 1, False, DARK),
+    ("4. Height-Histogram Analysis (advanced)", 0, True, NAVY),
+    ("Peaks of the z-histogram = tread levels; bands between = riser.", 1, False, DARK),
+    ("Minimum 2 methods required -> 4 implemented for a thorough comparison.", 0, True, GREEN),
 ], Inches(0.6), Inches(1.45), SW - Inches(1.2), Inches(5.6), size=19)
 
-# ---------------------------------------------------------------- Slide 5 algoritma
-s = add_slide(); header(s, "Metodologi & Algoritma", "Rumus inti")
+# ---------------------------------------------------------------- Slide 5 algorithm
+s = add_slide(); header(s, "Methodology & Algorithms", "Core formulas")
 bullets(s, [
-    ("RANSAC: jarak titik ke bidang", 0, True, NAVY),
-    ("d(x)=|n·x+b|,  inlier I={x: d(x)<τ},  τ=0.035 m", 1, False, DARK),
-    ("Gate orientasi: horizontal |n·z|≥0.93 (tread), vertikal ≤0.25 (riser).", 1, False, DARK),
-    ("PCA Normal: kovarians lokal k-NN (k=50)", 0, True, NAVY),
+    ("RANSAC: point-to-plane distance", 0, True, NAVY),
+    ("d(x)=|n·x+b|,  inliers I={x: d(x)<τ},  τ=0.035 m", 1, False, DARK),
+    ("Orientation gate: horizontal |n·z|≥0.93 (tread), vertical ≤0.25 (riser).", 1, False, DARK),
+    ("PCA Normal: local k-NN covariance (k=50)", 0, True, NAVY),
     ("C_p=(1/k)Σ(x_j-x̄)(x_j-x̄)ᵀ,  n_p=eigvec_min(C_p)", 1, False, DARK),
-    ("Tread |n·z|≥0.80, riser ≤0.50 (lebih longgar: normal per-titik lebih noisy).", 1, False, DARK),
-    ("DBSCAN: ε=0.08 m dalam tiap grup orientasi, lalu konfirmasi slope.", 0, True, NAVY),
-    ("Bidang 'ramp' global stair: |n·z|=d/√(d²+h²)≈0.86 -> alasan gate orientasi.", 0, False, RED),
+    ("Tread |n·z|≥0.80, riser ≤0.50 (looser: per-point normals are noisier).", 1, False, DARK),
+    ("DBSCAN: ε=0.08 m within each orientation group, then slope confirmation.", 0, True, NAVY),
+    ("Global stair 'ramp' plane: |n·z|=d/√(d²+h²)≈0.86 -> motivates the orientation gate.", 0, False, RED),
 ], Inches(0.6), Inches(1.45), SW - Inches(1.2), Inches(5.6), size=19)
 
-# ---------------------------------------------------------------- Slide 6 hasil tabel
-s = add_slide(); header(s, "Hasil Eksperimen", "Metrik kelas tread (one-vs-rest)")
+# ---------------------------------------------------------------- Slide 6 results table
+s = add_slide(); header(s, "Experimental Results", "Tread-class metrics (one-vs-rest)")
 tm = METRICS["tread_metrics"]
 order = ["RANSAC", "PCA-Normals", "DBSCAN-Slope", "Height-Histogram"]
 rows, cols = len(order) + 1, 6
 tbl_shape = s.shapes.add_table(rows, cols, Inches(0.6), Inches(1.55),
                                Inches(7.0), Inches(2.6))
 table = tbl_shape.table
-hdr = ["Metode", "Acc", "Prec", "Rec", "F1", "IoU"]
+hdr = ["Method", "Acc", "Prec", "Rec", "F1", "IoU"]
 for j, h in enumerate(hdr):
     c = table.cell(0, j); c.text = h
     c.fill.solid(); c.fill.fore_color.rgb = NAVY
@@ -201,55 +197,55 @@ for i, name in enumerate(order, 1):
     table.cell(i, 0).text_frame.paragraphs[0].font.size = Pt(13)
     table.cell(i, 0).text_frame.paragraphs[0].font.bold = True
 bullets(s, [
-    ("DBSCAN-Slope terbaik: F1 0.943, IoU 0.892.", 0, True, GREEN),
-    ("PCA-Normals dekat: F1 0.927, presisi tertinggi 0.954.", 0, False, DARK),
-    ("Histogram: recall tertinggi 0.984, presisi lebih rendah.", 0, False, DARK),
-    ("RANSAC murni terlemah: presisi 0.714 (riser terserap bidang tread).", 0, False, RED),
+    ("DBSCAN-Slope is best: F1 0.943, IoU 0.892.", 0, True, GREEN),
+    ("PCA-Normals close behind: F1 0.927, highest precision 0.954.", 0, False, DARK),
+    ("Height-Histogram: highest recall 0.984, lower precision.", 0, False, DARK),
+    ("Plain RANSAC weakest: precision 0.714 (risers absorbed by tread planes).", 0, False, RED),
 ], Inches(0.6), Inches(4.4), SW - Inches(1.2), Inches(2.6), size=17)
 pic(s, "seg_dbscan_slope.png", Inches(7.85), Inches(1.55), width=Inches(5.0))
-caption(s, "Segmentasi DBSCAN 3D vs ground truth", Inches(7.85), Inches(3.7), Inches(5.0))
+caption(s, "DBSCAN 3D segmentation vs ground truth", Inches(7.85), Inches(3.7), Inches(5.0))
 
-# ---------------------------------------------------------------- Slide 7 visualisasi
-s = add_slide(); header(s, "Visualisasi 3D & Histogram", "Hasil eksperimen")
+# ---------------------------------------------------------------- Slide 7 visuals
+s = add_slide(); header(s, "3D Visualization & Histogram", "Experimental results")
 pic(s, "height_histogram.png", Inches(0.5), Inches(1.6), width=Inches(6.1))
-caption(s, "Histogram ketinggian: 4 level tread terdeteksi (z≈0,0.18,0.36,0.54 m)",
+caption(s, "Height histogram: 4 tread levels detected (z≈0,0.18,0.36,0.54 m)",
         Inches(0.5), Inches(5.45), Inches(6.1))
 pic(s, "seg_pca_normals.png", Inches(6.9), Inches(1.6), width=Inches(6.0))
-caption(s, "Segmentasi PCA-Normals 3D (kiri GT, kanan hasil)",
+caption(s, "PCA-Normals 3D segmentation (left GT, right result)",
         Inches(6.9), Inches(3.7), Inches(6.0))
 bullets(s, [
-    ("Tiap tread jadi level z tajam; riser mengisi pita antar-level.", 0, False, DARK),
-    ("Hijau=tread, merah=riser, abu=lainnya/outlier.", 0, False, GREY),
+    ("Each tread forms a sharp z-level; risers fill the bands between levels.", 0, False, DARK),
+    ("Green=tread, red=riser, grey=other/outlier.", 0, False, GREY),
 ], Inches(6.9), Inches(4.3), Inches(6.0), Inches(1.6), size=16)
 
 # ---------------------------------------------------------------- Slide 8 noise + safety
-s = add_slide(); header(s, "Analisis Noise & Keamanan Robot", "Diskusi")
+s = add_slide(); header(s, "Noise Analysis & Robot Safety", "Discussion")
 pic(s, "noise_sensitivity.png", Inches(0.5), Inches(1.7), width=Inches(6.0))
-caption(s, "F1/IoU tread vs σz (PCA-Normals)", Inches(0.5), Inches(5.2), Inches(6.0))
+caption(s, "Tread F1/IoU vs σz (PCA-Normals)", Inches(0.5), Inches(5.2), Inches(6.0))
 sw = METRICS["noise_sweep"]
 bullets(s, [
-    ("Pengaruh noise:", 0, True, NAVY),
-    (f"F1 turun {sw['f1'][0]:.3f} -> {sw['f1'][-1]:.3f} saat σz 0.01 -> 0.07 m.", 1, False, DARK),
-    ("Jatuh tajam saat σz mendekati ½ tinggi step (0.09 m): normal jadi ambigu.", 1, False, DARK),
-    ("Keamanan robot pengikut tangga:", 0, True, NAVY),
-    ("IoU≈0.89 cukup untuk perencanaan pijakan kasar.", 1, False, DARK),
-    ("Presisi <1.0 -> sebagian riser salah label 'dapat dipijak' = risiko.", 1, False, RED),
-    ("Mitigasi: ensemble voting, margin erosi tepi tread, verifikasi temporal.", 1, False, GREEN),
+    ("Effect of noise:", 0, True, NAVY),
+    (f"F1 drops {sw['f1'][0]:.3f} -> {sw['f1'][-1]:.3f} as σz 0.01 -> 0.07 m.", 1, False, DARK),
+    ("Sharp fall as σz approaches ½ step height (0.09 m): normals become ambiguous.", 1, False, DARK),
+    ("Safety for stair-following robots:", 0, True, NAVY),
+    ("IoU≈0.89 is adequate for coarse foothold planning.", 1, False, DARK),
+    ("Precision <1.0 -> some risers mislabeled steppable = hazard.", 1, False, RED),
+    ("Mitigation: ensemble voting, tread-edge erosion margin, temporal verification.", 1, False, GREEN),
 ], Inches(6.8), Inches(1.5), Inches(6.1), Inches(5.6), size=18)
 
-# ---------------------------------------------------------------- Slide 9 kesimpulan
-s = add_slide(); header(s, "Kesimpulan", "Penutup")
+# ---------------------------------------------------------------- Slide 9 conclusion
+s = add_slide(); header(s, "Conclusion", "Summary")
 bullets(s, [
-    ("Benchmark point cloud anak tangga sintetis berlabel penuh + perbandingan 4 metode klasik.", 0, False, DARK),
-    ("DBSCAN + analisis kemiringan terbaik (F1 0.943, IoU 0.892); RANSAC murni terlemah.", 0, True, NAVY),
-    ("Metode berbasis normal (PCA, DBSCAN) unggul: orientasi tread vs riser cue yang kuat.", 0, False, DARK),
-    ("Segmentasi memburuk saat noise mendekati ½ tinggi step.", 0, False, DARK),
-    ("Cukup untuk perencanaan pijakan kasar, perlu margin keamanan sebelum dipakai robot.", 0, False, DARK),
-    ("Arah ke depan: ensemble multi-metode, validasi LiDAR nyata, bandingkan vs deep learning.", 0, False, DARK),
-    ("Kode + paper + repo: github.com/riyadh-gif/UAS-citraPraktikum-PakNando", 0, True, BLUE),
+    ("A fully labeled synthetic staircase benchmark + comparison of four classical methods.", 0, False, DARK),
+    ("DBSCAN + slope analysis is best (F1 0.943, IoU 0.892); plain RANSAC is weakest.", 0, True, NAVY),
+    ("Normal-based methods (PCA, DBSCAN) win: tread vs riser orientation is a strong cue.", 0, False, DARK),
+    ("Segmentation degrades as noise approaches half the step height.", 0, False, DARK),
+    ("Adequate for coarse foothold planning; needs safety margins before robot use.", 0, False, DARK),
+    ("Future work: multi-method ensemble, real LiDAR validation, comparison vs deep learning.", 0, False, DARK),
+    ("Code + paper + repo: github.com/riyadh-gif/UAS-citraPraktikum-PakNando", 0, True, BLUE),
 ], Inches(0.6), Inches(1.6), SW - Inches(1.2), Inches(5.4), size=19)
 tb = s.shapes.add_textbox(Inches(0.6), Inches(6.7), SW - Inches(1.2), Inches(0.6))
-_set(tb.text_frame.paragraphs[0], "Terima kasih.", 20, True, NAVY)
+_set(tb.text_frame.paragraphs[0], "Thank you.", 20, True, NAVY)
 
 out = Path(__file__).resolve().parent / "presentasi.pptx"
 prs.save(out)
